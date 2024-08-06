@@ -25,7 +25,7 @@ def update_item(item, dict):
     storage.save()
 
 
-@app_views.get('/states')
+@app_views.route('/states')
 def all_state():
     return jsonify([state.to_dict() for state in states]), 200
 
