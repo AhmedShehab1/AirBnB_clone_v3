@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""New Module for API v1"""
+"""
+Defines actaul instance of Flask
+frameworks
+"""
 from flask import Flask
 from models import storage
 from api.v1.views import app_views
