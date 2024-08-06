@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+defining some routes
+"""
 from api.v1.views import app_views
 from models import storage
 from models.amenity import Amenity
