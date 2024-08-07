@@ -120,7 +120,6 @@ class TestDBStorage(unittest.TestCase):
         """
         self.cmd = HBNBCommand()
 
-
     def tearDown(self) -> None:
         """
         method executed after each test

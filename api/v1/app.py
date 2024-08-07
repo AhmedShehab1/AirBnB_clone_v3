@@ -17,6 +17,7 @@ CORS(app, resources={r'/*': {'origins': '0.0.0.0'}})
 def page_not_found(err):
     return {"error": "Not found"}, 404
 
+
 @app.teardown_appcontext
 def db_close(error):
     storage.close()
