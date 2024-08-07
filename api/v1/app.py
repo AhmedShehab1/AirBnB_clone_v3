@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-New Module for API v1 010020301203
+New Module for API v1
 """
 from flask import Flask
 from models import storage
@@ -10,8 +10,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-CORS(app)
-
+CORS(app, resources={r'/*': {'origins': '0.0.0.0'}})
 
 
 @app.errorhandler(404)
