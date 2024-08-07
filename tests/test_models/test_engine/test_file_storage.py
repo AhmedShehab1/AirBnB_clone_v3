@@ -77,7 +77,7 @@ class TestFileStorage(unittest.TestCase):
     def setUpClass(cls) -> None:
         """
         setting up file storage instance
-        """        
+        """
         cls.f_storage_instance = FileStorage()
         cls.cmd = HBNBCommand()
 
@@ -143,7 +143,6 @@ class TestFileStorage(unittest.TestCase):
         count += 1
         self.assertEqual(count, self.f_storage_instance.count())
         # count += len(mock_stdout.getvalue().strip().split())
-
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_save(self):

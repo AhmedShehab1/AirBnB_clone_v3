@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """
-Defines actaul instance of Flask
-frameworks
+New Module for API v1
 """
 from flask import Flask
 from models import storage
@@ -12,14 +11,15 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 
 
-@app.teardown_appcontext
-def db_close(error):
-    storage.close()
 
 
 @app.errorhandler(404)
 def page_not_found(err):
     return {"error": "Not found"}, 404
+
+@app.teardown_appcontext
+def db_close(error):
+    storage.close()
 
 
 if __name__ == '__main__':

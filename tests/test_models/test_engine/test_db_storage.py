@@ -93,6 +93,7 @@ class TestFileStorage(unittest.TestCase):
     def test_save(self):
         """Test that save properly saves objects to file.json"""
 
+
 class TestDBStorage(unittest.TestCase):
     """Testing DB Storage"""
 
@@ -119,12 +120,14 @@ class TestDBStorage(unittest.TestCase):
         """
         self.cmd = HBNBCommand()
 
+
     def tearDown(self) -> None:
         """
         method executed after each test
         """
         pass
 
+    @unittest.skipIf(models.storage_t != 'db', "Tests for db only")
     def test_inserting_row(self):
         """
         Tests for create operations
@@ -155,11 +158,11 @@ class TestDBStorage(unittest.TestCase):
         s_3_id = mock_stdout.getvalue().strip()
         count += 1
         self.assertEqual(count, self.db_instance.count(State))
-        self.cmd.onecmd(f'create City state_id="{s_1_id}" name="Olaya"')
+        self.cmd.onecmd(f'create City state_id={s_1_id} name="Olaya"')
         count += 1
-        self.cmd.onecmd(f'create City state_id="{s_2_id}" name="Giza"')
+        self.cmd.onecmd(f'create City state_id={s_2_id} name="Giza"')
         count += 1
-        self.cmd.onecmd(f'create City state_id="{s_3_id}" name="El-Jazerah"')
+        self.cmd.onecmd(f'create City state_id={s_3_id} name="El-Jazerah"')
         count += 1
         self.assertEqual(count, self.db_instance.count())
 

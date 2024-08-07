@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-handling all default RESTFul API actions
+New view for State to handle default RestFul API actions
 """
 from api.v1.views import app_views
 from models import storage
@@ -8,14 +8,16 @@ from models.state import State
 from flask import abort, jsonify, request
 
 
-states = storage.all(State).values()
-
-
-def handle_id(id):
-    for state in states:
-        if id == state.id:
-            return state
+def get_items(id=None):
+    states = storage.all(State).values()
+    if id is None:
+        return states
+    else:
+        for state in states:
+            if id == state.id:
+                return state
     abort(404)
+
 
 def update_item(item, dict):
     for k, v in dict.items():
@@ -25,13 +27,14 @@ def update_item(item, dict):
     storage.save()
 
 
-@app_views.route('/states')
+@app_views.get('/states/')
 def all_state():
-    return jsonify([state.to_dict() for state in states]), 200
+    return jsonify([state.to_dict() for state in get_items()]), 200
+
 
 @app_views.route('/states/<string:id>', methods=['GET', 'DELETE', 'PUT'])
 def state(id):
-    result = handle_id(id)
+    result = get_items(id)
     if request.method == 'GET':
         return jsonify(result.to_dict()), 200
 
@@ -40,11 +43,12 @@ def state(id):
         if not data:
             return "Not a JSON", 400
         update_item(result, data)
-        return result.to_dict(), 200
+        return jsonify(result.to_dict()), 200
 
     # else delete -------------------to be fixed---------------
     storage.delete(result)
     return {}, 200
+
 
 @app_views.post('/states/')
 def create_state():
@@ -54,6 +58,6 @@ def create_state():
     if not data.get('name'):
         return "Missing name", 400
     new_state = State(**data)
-    new_state.save() # Not Being Saved to db, (After restarting the server it works)
+    new_state.save()  # Not Being Saved to db,
+# (After restarting the server it works)
     return jsonify(new_state.to_dict()), 201
-
